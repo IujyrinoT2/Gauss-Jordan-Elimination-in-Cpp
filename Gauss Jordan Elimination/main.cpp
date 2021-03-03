@@ -13,23 +13,23 @@ ifstream f("System data.txt");                                        // In date
 
 
 int switch_Col(int i_piv, int j_piv, int n, int m, double ***A, int **X)          // Cauta daca se pot interschimba 2 coloane. Daca gaseste un pivot nenul pe aceeasi linie atunci interschimba si returneaza "1"
-// altfel returneaza "0"
+                                                                                  // altfel returneaza "0"
 {
     int i, j, switchable = 0, aux;
 
-    for(j = j_piv; j < m; j++)
+    for(j = j_piv; j < m - 1; j++)
     {
         if((*A)[i_piv][j] != 0)
         {
-            switchable = 1;                             // Daca gaseste un pivot nenul pe aceeasi linie atunci a gasit o coloana "interschimbabila"
+            switchable = 1;                                                        // Daca gaseste un pivot nenul pe aceeasi linie atunci a gasit o coloana "interschimbabila"
             break;
         }
     }
 
     if(!switchable)
-        return 0;                                           // Daca nu s-a gasit nici-o coloana inteschimbabila atunci iese din functie cu "0"
+        return 0;                                                                  // Daca nu s-a gasit nici-o coloana inteschimbabila atunci iese din functie cu "0"
 
-    for(i = 0; i < n; i++)                                  // Daca functia inca nu s-a iesit din functie atunci coloanele se interschimba
+    for(i = 0; i < n; i++)                                                         // Daca functia inca nu s-a iesit din functie atunci coloanele se interschimba
     {
         aux = (*A)[i][j_piv];
         (*A)[i][j_piv] = (*A)[i][j];
@@ -113,9 +113,9 @@ void calc_A_next(int n, int m, int i_piv, int j_piv, double ***A, double ***A_ne
         {
             if(i != i_piv && j != j_piv)                                                                                    // Regula dreptunghiului se va folosi doar pe elementele care nu se afla pe aceeasi linie sau coloana cu piv
             {
-                printf("\nA_next[%d][%d]= (%.2f * %.2f) - (%.2f * %.2f)\n",i,j,piv,(*A)[i][j],(*A)[i_piv][j],(*A)[i][j_piv]);
+                printf("\nA_next[%d][%d]= (%.2f * %.2f) - (%.2f * %.2f)\n",i+1,j+1,piv,(*A)[i][j],(*A)[i_piv][j],(*A)[i][j_piv]);
                 (*A_next)[i][j] = (piv * ((*A)[i][j])) - ((*A)[i_piv][j]) * ((*A)[i][j_piv]);                                               // A_next va lua elementele prelucrate prin regula dreptunghiului din A
-                printf("A_next[%d][%d] becomes %.2f\n\n",i,j,(*A_next)[i][j]);
+                printf("A_next[%d][%d] becomes %.2f\n\n",i+1,j+1,(*A_next)[i][j]);
 
             }
         }
@@ -148,10 +148,16 @@ bool incompatible_Syst(int n, int m, double ***A_next)                          
             {
                 null_coef = 0;                                 // Toate elementele de pe o linie care nu se afla pe ultima coloana vor fi coeficientii necunoscutelor
             }
+
         }
 
         if(null_coef && ((*A_next)[i][m-1] != 0))                // Daca pe o linie coef sunt nuli si ultimul element care corespunde rezultatelor este nenul atunci
-            return 1;                                         // se ajunge la o contradictie de tipu "0 = ceva" ceea ce este fals si atunci sistemul este incompatibil
+            {
+                printf("%.2f = %.2f",(*A_next)[i][j], (*A_next)[i][m-1]);
+                return 1;
+            }
+
+                                                 // se ajunge la o contradictie de tipu "0 = ceva" ceea ce este fals si atunci sistemul este incompatibil
     }
 
     return 0;                                                 // Altfel daca functia a ajuns cu succes la final atunci sistemul este compatibil
