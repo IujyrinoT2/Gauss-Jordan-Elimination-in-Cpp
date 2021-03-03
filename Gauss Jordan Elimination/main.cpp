@@ -15,7 +15,8 @@ ifstream f("System data.txt");                                        // In date
 int switch_Col(int i_piv, int j_piv, int n, int m, double ***A, int **X)          // Cauta daca se pot interschimba 2 coloane. Daca gaseste un pivot nenul pe aceeasi linie atunci interschimba si returneaza "1"
                                                                                   // altfel returneaza "0"
 {
-    int i, j, switchable = 0, aux;
+    int i, j, switchable = 0, aux_int;
+    double aux_double;
 
     for(j = j_piv; j < m - 1; j++)
     {
@@ -31,15 +32,15 @@ int switch_Col(int i_piv, int j_piv, int n, int m, double ***A, int **X)        
 
     for(i = 0; i < n; i++)                                                         // Daca functia inca nu s-a iesit din functie atunci coloanele se interschimba
     {
-        aux = (*A)[i][j_piv];
+        aux_double = (*A)[i][j_piv];
         (*A)[i][j_piv] = (*A)[i][j];
-        (*A)[i][j] = aux;
+        (*A)[i][j] = aux_double;
     }
 
     // Salvam pozitiile necunoscutelor interschimbate
-    aux = (*X)[j];
+    aux_int = (*X)[j];
     (*X)[j] = (*X)[j_piv];
-    (*X)[j_piv] = aux;
+    (*X)[j_piv] = aux_int;
 
     printf("Matrix if we switch %d cu %d\n",j_piv+1,j+1);
     cout<<endl;
@@ -102,7 +103,7 @@ int init_A_next(int n, int m, int i_piv, int j_piv, double ***A, double ***A_nex
 
 void calc_A_next(int n, int m, int i_piv, int j_piv, double ***A, double ***A_next)            // Aici se vor calcula restul elementelor din A_next folosind regula triunghiului
 {
-    float piv = (*A_next)[i_piv][j_piv];
+    double piv = (*A_next)[i_piv][j_piv];
     int i,j;
 
     printf("\npiv:%.2f\n",piv);                                 // Se afiseaza piv la stadiul de calcul(trebuie sa fie egal cu cel de la stadiul de pregatire)
