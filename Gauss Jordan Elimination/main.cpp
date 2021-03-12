@@ -275,7 +275,7 @@ int main()
         f>>B[i];
     }
     // Afisam Matricea A si vectorul B
-    printf("Matricea coeficientilor\n");
+    printf("Coef matrix:\n");
     cout<<endl;
     for(i = 0; i < n; i++)
     {
@@ -287,7 +287,7 @@ int main()
     }
 
     cout<<endl;
-    printf("Vectorul rezultatelor\n");
+    printf("Results vector:\n");
     cout<<endl;
 
     for(i = 0; i < n; i++)
@@ -300,7 +300,7 @@ int main()
         X[i] = i;
 
     // Extindem cu o coloana matricea A si pe acea coloana se copiaza B
-    cout<<"\nExtindem matricea A cu B\n\n";
+    cout<<"\nExtinding matrix A with vector B\n\n";
 
     for(i = 0; i < n; i++)
         A[i][m] = B[i];
@@ -326,7 +326,7 @@ int main()
         }
     }
 
-    cout<<"\n Initializare A_next cu 9999\n";
+    cout<<"\n Initializing A_next with 9999\n";
     for(i = 0; i < n; i++)
     {
         for(j = 0; j < m; j++)
@@ -345,7 +345,7 @@ int main()
     k = 0;
     do                                                                                  // Se vor repeta cele 3 functii de prelucrare pana se atinge nr max de pivoti sau pana ajunge piv 0
     {
-        cout<<"\n suntem la pasul "<<k+1<<endl;
+        cout<<"\n Current step "<<k+1<<endl;
 
         End = init_A_next(n, m, k, k, &A, &A_next, &X);                                                     //  Aceasta secventa are dublu scop: va apela functia de initializare a lui A_next, si in cazul in care se alege piv nul, se va opri prelucrarea
         if(End)
@@ -354,7 +354,7 @@ int main()
             break;
         }
 
-        cout<<"\n A_next initializat\n";                                               // Afiseaza A_next dupa initializare
+        cout<<"\n A_next initialized\n";                                               // Afiseaza A_next dupa initializare
         for(i = 0; i < n; i++)
         {
             for(j = 0; j < m; j++)
@@ -367,7 +367,7 @@ int main()
 
         calc_A_next(n, m, k, k, &A, &A_next);                                                         // Se apeleaza functia de calcul prin regula dreptunghiului
 
-        cout<<"\n A_next prelucrat\n";                                                // Afiseaza A_next dupa prelucrare
+        cout<<"\n A_next calculated\n";                                                // Afiseaza A_next dupa prelucrare
         for(i = 0; i < n; i++)
         {
             for(j = 0; j < m; j++)
@@ -387,6 +387,8 @@ int main()
     sol_Syst(n, m, &A_next, &X);                                                                   // Apelam functia care va afisa solutiile si tipul sistemului
 
     free(X);
+
+    free(B);
 
     for(i = 0; i < n; i++)
         free(A[i]);

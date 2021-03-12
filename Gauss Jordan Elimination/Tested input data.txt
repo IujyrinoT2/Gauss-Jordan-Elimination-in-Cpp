@@ -135,7 +135,7 @@ Incompatible system
 
 7 4 7 7 9
 
-si
+and
 
 3
 4
