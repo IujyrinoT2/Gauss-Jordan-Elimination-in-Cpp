@@ -222,7 +222,7 @@ void sol_Syst(int n, int m, double ***A_next, int **X)
             undet_degree++;
 
         }
-        printf(" are secondary solution and belong to R\nSystem is determined compatible of %d degree\n\n", undet_degree);     // Nr de necunoscute secundare reprezinta ordinul de nedeterminare
+        printf(" are secondary solution and belong to R\nSystem is undetermined compatible of %d degree\n\n", undet_degree);     // Nr de necunoscute secundare reprezinta ordinul de nedeterminare
     }
 }
 
@@ -300,7 +300,7 @@ int main()
         X[i] = i;
 
     // Extindem cu o coloana matricea A si pe acea coloana se copiaza B
-    cout<<"\nExtinding matrix A with vector B\n\n";
+    cout<<"\nExtending matrix A with vector B\n\n";
 
     for(i = 0; i < n; i++)
         A[i][m] = B[i];
